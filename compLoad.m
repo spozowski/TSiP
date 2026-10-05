@@ -1,0 +1,19 @@
+function compLoad(ax,x1,x2,nu,su,qn,qs,p,vn,sc,txP)
+vp=linspace(0,p,vn); vp(1)=1; dis=[0 1]*10^-1; scv=[sc 0;1 0.75];
+q=[qn;qs]; lcs=[nu;su]; cl=[1 0 0;0 0 1];
+qni=[min(qn) max(qn)]; qsi=[min(qs) max(qs)];
+for i=1:2
+    plot(ax(i),x1,x2,'Color','k','LineWidth',2)
+    quiver(ax(i),x1(vp)+dis(i)*lcs(1,1),x2(vp)+dis(i)*lcs(1,2),...
+    q(i,vp)*lcs(i,1)*scv(i,1),q(i,vp)*lcs(i,2)*scv(i,1),scv(i,2), ...
+    'filled','Color',cl(i,:))
+    plot(ax(i),x1+lcs(1,1)*q(i,:)*sc,x2+lcs(1,2)*q(i,:)*sc,...
+        'Color',cl(i,:),'LineWidth',1)
+end
+plot(ax(2),[x1(1) x1(1)+lcs(1,1)*q(2,1)*sc], ...
+           [x2(1) x2(1)+lcs(1,2)*q(2,1)*sc],'b','LineWidth',0.5)
+plot(ax(2),[x1(p) x1(p)+lcs(1,1)*q(2,p)*sc], ...
+           [x2(p) x2(p)+lcs(1,2)*q(2,p)*sc],'b','LineWidth',0.5)
+disp([txP ': ' ' qnmin=' num2str(qni(1)) 'q, qnmax=' num2str(qni(2)) ...
+    'q, qsmin=' num2str(qsi(1)) 'q, qsmax=' num2str(qsi(2)) 'q']),
+end
